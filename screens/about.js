@@ -6,6 +6,11 @@ const About = () => {
   return (
     <View style={globalStyles.container}>
       <Text>About Screen</Text>
+      <Text>About Screen</Text>
+      <Text>About Screen</Text>
+      <Text>About Screen</Text>
+      <Text>About Screen</Text>
+      <Text>About Screen</Text>
     </View>
   );
 };
