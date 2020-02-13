@@ -10,8 +10,8 @@ const getFonts = () =>
   });
 
 export default function App() {
-  const [fontLoaded, setFontsLoaded] = useState(false);
-  if (fontLoaded) {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  if (fontsLoaded) {
     return <Navigator />;
   } else {
     return (
