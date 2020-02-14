@@ -4,8 +4,11 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from "react-native";
+import ImageBg from "../assets/game_bg.png";
+import Card from "../shared/card";
 
 import { globalStyles } from "../styles/global";
 
@@ -32,18 +35,20 @@ const Home = ({ navigation }) => {
   ]);
 
   return (
-    <View style={globalStyles.container}>
+    <ImageBackground source={ImageBg} style={globalStyles.container}>
       <FlatList
         data={reviews}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("ReviewDetails", item)}
           >
-            <Text style={globalStyles.titleText}>{item.title}</Text>
+            <Card>
+              <Text style={globalStyles.titleText}>{item.title}</Text>
+            </Card>
           </TouchableOpacity>
         )}
       />
-    </View>
+    </ImageBackground>
   );
 };
 
