@@ -3,12 +3,12 @@ import { View, Text, Image, ImageBackground } from "react-native";
 import { globalStyles } from "../styles/global";
 import { images } from "../utils/utils";
 import Card from "../shared/card";
-import ImageBg from "../assets/game_bg.png";
+import BackgroundContainer from "../shared/backgroundContainer";
 
 const ReviewDetails = ({ navigation }) => {
   const rating = navigation.getParam("rating");
   return (
-    <ImageBackground source={ImageBg} style={globalStyles.container}>
+    <BackgroundContainer>
       <Card>
         <Text>{navigation.getParam("title")}</Text>
         <Text>{navigation.getParam("body")}</Text>
@@ -17,7 +17,7 @@ const ReviewDetails = ({ navigation }) => {
           <Image source={images[rating]} />
         </View>
       </Card>
-    </ImageBackground>
+    </BackgroundContainer>
   );
 };
 

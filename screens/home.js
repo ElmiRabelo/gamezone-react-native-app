@@ -5,12 +5,15 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  ImageBackground
+  TouchableWithoutFeedback,
+  Modal,
+  Keyboard
 } from "react-native";
-import ImageBg from "../assets/game_bg.png";
-import Card from "../shared/card";
-
+import { MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/global";
+import BackgroundContainer from "../shared/backgroundContainer";
+import Card from "../shared/card";
+import ReviewForm from "./reviewForm";
 
 const Home = ({ navigation }) => {
   const [reviews, setReviews] = useState([
@@ -33,9 +36,37 @@ const Home = ({ navigation }) => {
       key: "3"
     }
   ]);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const addReview = review => {
+    review.key = Math.floor(Math.random() * 300 + 1).toString();
+    setReviews([review, ...reviews]);
+    setModalOpen(false);
+  };
 
   return (
-    <ImageBackground source={ImageBg} style={globalStyles.container}>
+    <BackgroundContainer>
+      <Modal visible={modalOpen} animationType="slide">
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.modalContent}>
+            <MaterialIcons
+              name="close"
+              size={24}
+              onPress={() => setModalOpen(false)}
+              style={{ ...styles.modalToggle, ...styles.modalClose }}
+            />
+            <ReviewForm addReview={addReview} />
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      <MaterialIcons
+        name="add"
+        size={24}
+        onPress={() => setModalOpen(true)}
+        style={styles.modalToggle}
+      />
+
       <FlatList
         data={reviews}
         renderItem={({ item }) => (
@@ -48,8 +79,29 @@ const Home = ({ navigation }) => {
           </TouchableOpacity>
         )}
       />
-    </ImageBackground>
+    </BackgroundContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  modalToggle: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#f2f2f2",
+    backgroundColor: "coral",
+    elevation: 1,
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: "center",
+    marginVertical: 10
+  },
+  modalClose: {
+    backgroundColor: "#323441",
+    color: "coral"
+  },
+  modalContent: {
+    padding: 20
+  }
+});
 
 export default Home;
